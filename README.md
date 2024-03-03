@@ -18,3 +18,14 @@ Front-end
 
 UI/UX
 ![Figma](https://img.shields.io/badge/-Figma-F24E1E?style=flat-square&logo=figma&logoColor=white)
+
+## **📚 The look of website:**
+![image](https://github.com/mat-rys/Kadrometer_Spring_Angualr_API/assets/98847639/18286c04-8a49-454a-9bbe-21805c4829bc)
+USER:
+![image](https://github.com/mat-rys/Kadrometer_Spring_Angualr_API/assets/98847639/bcce4d45-aae1-4aa9-90cd-1f46afa00d56)
+![image](https://github.com/mat-rys/Kadrometer_Spring_Angualr_API/assets/98847639/9288552f-74f2-4401-b44e-68b2d1f0602e)
+ADMIN:
+![image](https://github.com/mat-rys/Kadrometer_Spring_Angualr_API/assets/98847639/a8d269da-5da7-4e36-84a3-e7f5b38a7b7f)
+![image](https://github.com/mat-rys/Kadrometer_Spring_Angualr_API/assets/98847639/29c869bd-cc50-4e50-a1f4-cb3590e6c68f)
+Pdf with hours:
+![image](https://github.com/mat-rys/Kadrometer_Spring_Angualr_API/assets/98847639/b6b7d888-70e7-4a69-8637-15c9a1d700cb)
