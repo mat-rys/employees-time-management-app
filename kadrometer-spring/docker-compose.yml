@@ -1,0 +1,29 @@
+version: '3'
+services:
+  api:
+    build: ./
+    container_name: Kadromierz
+    image: api-kadrometr
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database-kadrometr
+    environment:
+      - spring.datasource.url=jdbc:postgresql://db:5432/kadromierz
+      - spring.datasource.username=postgres
+      - spring.datasource.password=1234
+      - spring.datasource.driverClassName=org.postgresql.Driver
+      - spring.jpa.show-sql=true
+      - spring.jpa.hibernate.ddl-auto=update
+      - logout.link=http://localhost:8080/logout
+      - login.link=http://localhost:8080/login
+      - register.link=http://localhost:8080/register
+  db:
+    image: postgres
+    container_name: database-kadrometr
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=kadromierz
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
