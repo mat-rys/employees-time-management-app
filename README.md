@@ -33,15 +33,32 @@ Pdf with hours:
 ## Endpoints
 
 ### Login
-Metoda: POST  
-Ścieżka: `/login`
-
-#### Opis:
-Endpoint służący do logowania użytkownika.
-
-#### Parametry żądania:
+Method: POST  
+Path: `/login`
+#### Description:
+Endpoint used for user login.
+#### Request Parameters:
 ```json
 {
   "userEmail": "string",
   "userPassword": "string"
 }
+
+## Registration 
+- Method: POST
+- Path: `/register`
+#### Description:
+This endpoint is used for user registration.
+#### Request Parameters:
+```json
+{
+  "userEmail": "string",
+  "userPassword": "string",
+  "role": "string",
+  "name": "string",
+  "surname": "string",
+  "position": "string"
+}
+
+
+
