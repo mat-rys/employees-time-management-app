@@ -29,3 +29,19 @@ ADMIN:
 ![image](https://github.com/mat-rys/Kadrometer_Spring_Angualr_API/assets/98847639/29c869bd-cc50-4e50-a1f4-cb3590e6c68f)
 Pdf with hours:
 ![image](https://github.com/mat-rys/Kadrometer_Spring_Angualr_API/assets/98847639/b6b7d888-70e7-4a69-8637-15c9a1d700cb)
+
+## Endpoints
+
+### Login
+Metoda: POST  
+Ścieżka: `/login`
+
+#### Opis:
+Endpoint służący do logowania użytkownika.
+
+#### Parametry żądania:
+```json
+{
+  "userEmail": "string",
+  "userPassword": "string"
+}
