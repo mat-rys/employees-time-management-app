@@ -2,6 +2,9 @@
 ## Project Overview
 The project aims to streamline employee payroll management and work supervision with the capability of easily extracting data, for instance, into PDFs sorted according to custom guidelines, generating ready-made employee hour logs within a specified range, sorted as required.
 
+## **✏️ Important information:**
+Project need improvment with good code practice and architecture in frontend, I was.'t using decorator properly back then.
+
 ## **🚀 The project model:**
 ![image](https://github.com/mat-rys/Kadrometer_Spring_Angualr_API/assets/98847639/4225d85b-0db9-4de1-849f-0662f5dd45f8)
 
