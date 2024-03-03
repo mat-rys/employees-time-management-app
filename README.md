@@ -43,6 +43,7 @@ Endpoint used for user login.
   "userEmail": "string",
   "userPassword": "string"
 }
+```
 
 ## Registration 
 - Method: POST
@@ -59,6 +60,7 @@ This endpoint is used for user registration.
   "surname": "string",
   "position": "string"
 }
+```
 
 
 
