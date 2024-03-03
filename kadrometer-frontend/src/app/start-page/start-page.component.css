@@ -1,0 +1,97 @@
+body {
+    background-color: #111111;
+    margin: 0; 
+    overflow: hidden; 
+}
+
+.background-content-photo {
+    background-color: #111111;
+    position: absolute;
+    top: -0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; 
+}
+
+
+
+.image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.reg-and-log button {
+    background: linear-gradient(0deg, #ff5722, #e64a19); 
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 18px 60px;
+    margin: 30px 25px; 
+    font-size: 26px;
+    font-family: 'Playfair Display', serif; 
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); 
+    user-select: none;
+}
+
+.reg-and-log button:hover {
+    background: linear-gradient(0deg, #e64a19, #c8380f); 
+    transform: scale(1.1);
+    transform-origin: center;
+    outline: none;
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.3); 
+    user-select: none;
+}
+
+
+.reg-and-log {
+    position: absolute;
+    top: 60%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+
+/* Dla małych ekranów (np. telefony komórkowe i tablety) */
+@media (max-width: 1023px) {
+    .background-content-photo {
+        height: 100%;
+    }
+    .image {
+        max-width: 100%;
+        height: auto;
+    }
+    .reg-and-log {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .reg-and-log button {
+        padding: 12px 40px;
+        font-size: 20px;
+    }
+}
+
+/* Dla większych ekranów (np. laptopy 20 cali i większe) */
+@media (min-width: 1024px) {
+    .background-content-photo {
+        height: 100%;
+    }
+    .image {
+        width: 100%;
+        height: auto;
+    }
+    .reg-and-log {
+        top: 60%;
+        left: 55%;
+        transform: translate(-50%, -50%);
+    }
+    .reg-and-log button {
+        padding: 18px 60px;
+        font-size: 26px;
+    }
+}

@@ -1,0 +1,33 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
+</head>
+<body>
+    <div class="background-content-photo">
+    </div>
+
+    <section class="star-web">
+        <nav class="nav-list">
+          <div class="nav-buttons">
+            <a href="http://localhost:4200/monitor-users"><button><i class="fas fa-user"></i> Użytkownicy</button></a>
+            <a href="http://localhost:4200/activation-account"><button><i class="fas fa-book"></i> Aktywuj konta</button></a>
+            <a href="http://localhost:4200/login" (click)="logout()" ><button><i class="fas fa-sign-out-alt"></i> Wyloguj się</button></a>
+          </div>
+        </nav>
+      </section> 
+
+      <section class="hero">
+        <h2>Aktywacja Kont</h2>
+        <ul>
+          <li *ngFor="let user of usersWithNullRole">
+            {{ user.userEmail }}  {{ user.name }} {{ user.surname }} {{ user.position }}
+            <button (click)="activateAccount(user.accountId)">Aktywuj</button>
+            <button (click)="confirmDelete(user.accountId)">Usuń</button>
+          </li>
+        </ul>
+        <p *ngIf="usersWithNullRole.length === 0">Brak nowych kont do aktywacji.</p>
+      </section>
+      
+</body>
+
+

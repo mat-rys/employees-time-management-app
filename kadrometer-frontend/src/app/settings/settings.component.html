@@ -1,0 +1,64 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
+</head>
+<body>
+    <div class="background-content-photo">
+    </div>
+
+    <section class="star-web">
+        <nav class="nav-list">
+          <div class="nav-buttons">
+            <a href="http://localhost:4200/time-managment"><button><i ></i> Czas pracy</button></a>
+            <a href="http://localhost:4200/settings"><button><i ></i> Opcje</button></a>
+            <a href="http://localhost:4200/history-work"><button><i ></i>Historia pracy</button></a>
+            <a href="http://localhost:4200/login" (click)="logout()" ><button><i class="fas fa-sign-out-alt"></i> Wyloguj się</button></a>
+          </div>
+        </nav>
+      </section> 
+
+      <section class="settings-container">
+        <div class="settings-row">
+            <span class="settings-label">Email:</span>
+            <span class="settings-value">{{ account.userEmail }}</span>
+            <div class="change-button" (click)="showEmailInput = true">Change</div>
+        </div>
+        <div class="change-input" *ngIf="showEmailInput">
+            <input type="text" [(ngModel)]="newEmail" placeholder="New email">
+            <button (click)="updateEmail(account.accountId)">Update</button>
+        </div>
+    
+        <div class="settings-row">
+            <span class="settings-label">Name:</span>
+            <span class="settings-value">{{ account.name }}</span>
+            <div class="change-button" (click)="showNameInput = true">Change</div>
+        </div>
+        <div class="change-input" *ngIf="showNameInput">
+            <input type="text" [(ngModel)]="newName" placeholder="New name">
+            <button (click)="updateName(account.accountId)">Update</button>
+        </div>
+    
+        <div class="settings-row">
+            <span class="settings-label">Surname:</span>
+            <span class="settings-value">{{ account.surname }}</span>
+            <div class="change-button" (click)="showSurnameInput = true">Change</div>
+        </div>
+        <div class="change-input" *ngIf="showSurnameInput">
+            <input type="text" [(ngModel)]="newSurname" placeholder="New surname">
+            <button (click)="updateSurname(account.accountId)">Update</button>
+        </div>
+    
+        <div class="settings-row">
+            <span class="settings-label">Position:</span>
+            <span class="settings-value">{{ account.position }}</span>
+            <div class="change-button" (click)="showPositionInput = true">Change</div>
+        </div>
+        <div class="change-input" *ngIf="showPositionInput">
+            <input type="text" [(ngModel)]="newPosition" placeholder="New position">
+            <button (click)="updatePosition(account.accountId)">Update</button>
+        </div>
+    </section>
+    
+</body>
+
+

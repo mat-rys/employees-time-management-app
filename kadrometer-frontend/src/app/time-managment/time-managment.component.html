@@ -1,0 +1,31 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
+</head>
+<body>
+    <div class="background-content-photo">
+    </div>
+
+    <section class="star-web">
+      <nav class="nav-list">
+        <div class="nav-buttons">
+          <a href="http://localhost:4200/time-managment"><button><i ></i> Czas pracy</button></a>
+          <a href="http://localhost:4200/settings"><button><i ></i> Opcje</button></a>
+          <a href="http://localhost:4200/history-work"><button><i ></i>Historia pracy</button></a>
+          <a href="http://localhost:4200/login" (click)="logout()" ><button><i class="fas fa-sign-out-alt"></i> Wyloguj się</button></a>
+        </div>
+      </nav>
+    </section> 
+
+    <div class="button-container">
+      <button class="round-button round-button-start" (click)="toggleStartStop()">
+        <img *ngIf="isStart" width="50" height="50" src="https://img.icons8.com/ios/50/1A1A1A/start--v1.png" />
+            <img *ngIf="!isStart" width="50" height="50"  src="https://img.icons8.com/ios/50/1A1A1A/circled-pause.png" />
+            {{ isStart ? 'Start' : 'Stop' }}
+        </button>
+    </div>
+
+    <div class="clock" id="clock">{{ timeDifference }}</div>
+  </body>
+
+

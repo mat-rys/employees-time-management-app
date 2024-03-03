@@ -1,0 +1,151 @@
+body {
+    background-color: #111111;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.background-content-photo {
+    background-color: #111111;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.star-web {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.nav-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 20px;
+    width: auto;
+}
+
+.nav-list .logo a:hover {
+    color: #e64a19;
+    border-radius: 20px;
+}
+
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-buttons a {
+    text-decoration: none;
+}
+
+.nav-buttons button {
+    padding: 8px; 
+    font-size: 20px;
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in, border-radius 0.3s ease-in-out;
+    border-radius: 50%; 
+}
+
+.nav-buttons button:hover {
+    background-color: #e64a19;
+    color: #fff;
+    border-radius: 50%;
+}
+
+
+.settings-container {
+    background-color: #fff;
+    top: 250px;
+    position: absolute;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+}
+
+.settings-value{
+    position: left;
+}
+
+.settings-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 17px; 
+    color: #333;
+}
+
+.settings-label {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #e64a19;
+}
+
+.change-button {
+    padding: 8px 12px; /* Powiększono przycisk */
+    margin-bottom: 10px;
+    margin-left: 20px;
+    background-color: #e64a19;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.change-button:hover {
+    background-color: #c8380f;
+}
+
+.change-input {
+    display: flex;
+    align-items: center;
+    margin-top: 5px; /* Zmieniono na 5px */
+}
+
+.change-input input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.change-input button {
+    padding: 8px 12px; /* Powiększono przycisk */
+    background-color: #e64a19;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.change-input button:hover {
+    background-color: #c8380f;
+}

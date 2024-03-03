@@ -1,0 +1,52 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
+</head>
+<body>
+    <div class="background-content-photo">
+    </div>
+
+    <section class="star-web">
+        <nav class="nav-list">
+          <div class="nav-buttons">
+            <a href="http://localhost:4200/monitor-users"><button><i class="fas fa-user"></i> Użytkownicy</button></a>
+            <a href="http://localhost:4200/activation-account"><button><i class="fas fa-book"></i> Aktywuj konta</button></a>
+            <a href="http://localhost:4200/login" (click)="logout()" ><button><i class="fas fa-sign-out-alt"></i> Wyloguj się</button></a>
+          </div>
+        </nav>
+      </section> 
+      
+      <section class="hero">
+        <label for="userSelect">Wybierz konto:</label>
+        <select id="userSelect" [(ngModel)]="selectedUser" (change)="onUserChange()">
+            <option *ngFor="let user of users" [value]="user.accountId">
+                {{ user.userEmail }} {{ user.name }} {{ user.surname }} {{ user.position }}
+            </option>
+        </select>
+        <section class="search">
+          <input type="date" [(ngModel)]="startDate" placeholder="Data od">
+          <input type="date" [(ngModel)]="endDate" placeholder="Data do">
+          <button (click)="searchWorkHistory()">Szukaj</button>
+          <button (click)="downloadWorkHistory()">Pobierz historię pracy</button>
+        </section>
+      </section>
+    
+   
+  
+    <div class="work-container">
+      <div class="work-item" *ngFor="let work of workHistory; let i = index">
+        <div class="work-details">
+          <div class="work-number">{{ i + 1 }}</div>
+          <p>Stan: {{ work.stage }}</p>
+          <p>Rozpoczęte: {{ formatWorkDate(work.startDate) }}  {{ work.startHour }} </p>
+          <p>Zakończone: {{ formatWorkDate(work.endDate) }}  {{ work.endHour }}</p>
+          <p>Trwało: {{ calculateDuration(work) }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="total-duration">Ilość godzin przepracowanych w danym okresie:  {{ totalDuration }}</div>
+
+</body>
+
+
+
