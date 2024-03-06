@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Work } from './work.model';
+import { AuthService } from '../auth-config/auth.service';
+import { Work } from './models/work.model';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { TDocumentDefinitions } from 'pdfmake/interfaces';
-import { Account } from './account.model';
-
-
+import { WorkHistoryService } from './services/work-history.service';
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
-
 
 @Component({
   selector: 'app-work-history',
@@ -27,7 +22,14 @@ export class WorkHistoryComponent implements OnInit {
   totalDuration: string = '';
   searchPerformed: boolean = false; 
 
-  constructor(private authService: AuthService, private http: HttpClient) {}
+  constructor(private workHistoryService: WorkHistoryService, private authService: AuthService) {}
+
+  ngOnInit() {
+    this.workHistoryService.getWorkHistory().subscribe((works) => {
+      this.workHistory = works;
+    });
+  }
+  
 
   sortWorkHistory() {
     if (this.sortBy === 'none') {
@@ -93,19 +95,7 @@ export class WorkHistoryComponent implements OnInit {
   
 
   
-  ngOnInit() {
-    const token = this.authService.getToken();
-
-    if (token) {
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
-
-      this.http.get<Work[]>('http://localhost:8080/works/user/email', { headers }).subscribe((works) => {
-        this.workHistory = works;
-      });
-    }
-  }
+ 
   formatWorkDate(dateString: string): string {
     const date = new Date(dateString);
     const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
@@ -136,7 +126,6 @@ export class WorkHistoryComponent implements OnInit {
 }
 
 
-  
 calculateDuration(work: Work): string {
   if (!work.startHour) {
     return 'Brak godziny rozpoczęcia';
@@ -194,12 +183,10 @@ calculateDuration(work: Work): string {
         totalMilliseconds += durationMilliseconds;
       }
     });
-
     const totalSeconds = totalMilliseconds / 1000;
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = Math.floor(totalSeconds % 60);
-
     return `${hours}h ${minutes}m ${seconds}s`;
   }
   
@@ -228,14 +215,7 @@ calculateDuration(work: Work): string {
   }
   
   downloadWorkHistory() {
-    const token = this.authService.getToken();
-  
-    if (token) {
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
-  
-      this.http.get<Account>('http://localhost:8080/account/UserPrincipal', { headers }).subscribe(
+      this.workHistoryService.getAccountDetails().subscribe(
         (userData) => {
   
           const userEmail = userData.userEmail;
@@ -274,11 +254,8 @@ calculateDuration(work: Work): string {
               },
             ],
           };
-  
           const pdfDocGenerator = pdfMake.createPdf(docDefinition);
-  
           const fileName = `work_history_${userName}_${userSurname}.pdf`;
-  
           pdfDocGenerator.download(fileName);
         },
         (error) => {
@@ -288,7 +265,5 @@ calculateDuration(work: Work): string {
   }
   
   
-
-}
 
 

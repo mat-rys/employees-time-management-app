@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth-config/auth.service';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Account } from './account.model';
+import { SettingsHttpService } from './services/settings-http.service';
 
 @Component({
   selector: 'app-settings',
@@ -24,26 +23,20 @@ export class SettingsComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private http: HttpClient
+    private settingsService: SettingsHttpService
   ) {}
 
   ngOnInit() {
     if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/login']);
     } 
-   
-    const token = this.authService.getToken();
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    this.loadUserAccount(headers);
+    this.loadUserAccount();
   }
 
-  loadUserAccount(headers: HttpHeaders) {
-    this.http.get<Account>('http://localhost:8080/account/UserPrincipal', { headers })
-      .subscribe(data => {
-        this.account = data;
-      });
+  loadUserAccount() {
+    this.settingsService.loadUserAccount().subscribe(data => {
+      this.account = data;
+    });
   }
 
   logout() {
@@ -53,65 +46,41 @@ export class SettingsComponent implements OnInit {
 
   updateEmail(accountId: number) {
     if (this.newEmail) {
-      const token = this.authService.getToken();
-      if (token) {
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        this.http
-          .put(`http://localhost:8080/account/${accountId}`, { userEmail: this.newEmail }, { headers })
-          .subscribe(() => {
-            this.loadUserAccount(headers);
-            this.showEmailInput = false;
-            this.newEmail = '';
-          });
-      }
+      this.settingsService.updateAccount(accountId, { userEmail: this.newEmail }).subscribe(() => {
+        this.loadUserAccount();
+        this.showEmailInput = false;
+        this.newEmail = '';
+      });
     }
   }
 
   updateName(accountId: number) {
     if (this.newName) {
-      const token = this.authService.getToken();
-      if (token) {
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        this.http
-          .put(`http://localhost:8080/account/${accountId}`, { name: this.newName }, { headers })
-          .subscribe(() => {
-            this.loadUserAccount(headers);
-            this.showNameInput = false;
-            this.newName = '';
-          });
-      }
+      this.settingsService.updateAccount(accountId, { name: this.newName }).subscribe(() => {
+        this.loadUserAccount();
+        this.showNameInput = false;
+        this.newName = '';
+      });
     }
   }
 
   updateSurname(accountId: number) {
     if (this.newSurname) {
-      const token = this.authService.getToken();
-      if (token) {
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        this.http
-          .put(`http://localhost:8080/account/${accountId}`, { surname: this.newSurname }, { headers })
-          .subscribe(() => {
-            this.loadUserAccount(headers);
-            this.showSurnameInput = false;
-            this.newSurname = '';
-          });
-      }
+      this.settingsService.updateAccount(accountId, { surname: this.newSurname }).subscribe(() => {
+        this.loadUserAccount();
+        this.showSurnameInput = false;
+        this.newSurname = '';
+      });
     }
   }
 
   updatePosition(accountId: number) {
     if (this.newPosition) {
-      const token = this.authService.getToken();
-      if (token) {
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        this.http
-          .put(`http://localhost:8080/account/${accountId}`, { position: this.newPosition }, { headers })
-          .subscribe(() => {
-            this.loadUserAccount(headers);
-            this.showPositionInput = false;
-            this.newPosition = '';
-          });
-      }
+      this.settingsService.updateAccount(accountId, { position: this.newPosition }).subscribe(() => {
+        this.loadUserAccount();
+        this.showPositionInput = false;
+        this.newPosition = '';
+      });
     }
   }
 }

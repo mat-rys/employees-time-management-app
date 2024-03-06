@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth-config/auth.service';
+import { RegistrationHttpService } from './services/registration-http.service';
 
 @Component({
   selector: 'app-registration',
@@ -15,7 +16,7 @@ export class RegistrationComponent {
   surname: string = ''; 
   position: string = ''; 
 
-  constructor(private router: Router, private http: HttpClient, private authService: AuthService) {}
+  constructor(private router: Router, private registrationService: RegistrationHttpService) {}
 
   register() {
     const requestBody = {
@@ -26,7 +27,7 @@ export class RegistrationComponent {
       position: this.position 
     };
 
-    this.http.post('http://localhost:8080/api/register', requestBody).subscribe((response: any) => {
+    this.registrationService.register(requestBody).subscribe((response: any) => {
       this.router.navigate(['/login']);
     });
   }

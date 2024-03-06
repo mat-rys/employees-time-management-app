@@ -8,7 +8,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { MonitorUsersComponent } from './monitor-users/monitor-users.component';
 import { ActivationAccountComponent } from './activation-account/activation-account.component';
 import { WorkHistoryComponent } from './work-history/work-history.component';
-import { AuthGuard } from './auth.guar';
+import { AuthGuard } from './auth-config/auth.guar';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

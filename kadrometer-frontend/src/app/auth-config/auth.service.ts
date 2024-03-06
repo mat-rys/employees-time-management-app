@@ -1,8 +1,4 @@
-// auth.service.ts
-
 import { Injectable } from '@angular/core';
-
-// auth.service.ts
 
 @Injectable({
   providedIn: 'root',

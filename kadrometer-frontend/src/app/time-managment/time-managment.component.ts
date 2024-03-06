@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth-config/auth.service';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Work } from './work.model';
+import { HttpClient} from '@angular/common/http';
+import { Work } from './models/work.model';
 import { interval, Subscription } from 'rxjs'; 
-import { WorkEnd } from './work.model copy';
+import { WorkEnd } from './models/work-end.model';
+import { Time } from '@angular/common';
+import { TimeManagmentService } from './services/time-managment.service';
 
 @Component({
   selector: 'app-time-managment',
@@ -12,7 +14,7 @@ import { WorkEnd } from './work.model copy';
   styleUrls: ['./time-managment.component.css']
 })
 export class TimeManagmentComponent  implements OnInit {
-  constructor(private authService: AuthService, private router: Router, private http: HttpClient) {}
+  constructor(private authService: AuthService, private timeService: TimeManagmentService) {}
   isStart: boolean = true;
   workWithMissingEndHour!: Work; 
   timeDifference!: string;
@@ -21,33 +23,21 @@ export class TimeManagmentComponent  implements OnInit {
 
   ngOnInit() {
     this.fetchWorkWithMissingEndHour(); 
-   
-    this.subscription = interval(1000).subscribe(() => {
-        this.calculateTimeDifference(); 
-    });
-  }  
+    this.subscription = interval(1000).subscribe(() => {this.calculateTimeDifference(); });
+  }   
   
 
   fetchWorkWithMissingEndHour() {
-    const token = this.authService.getToken();
-  
-    if (token) {
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
-  
-      this.http.get<Work>('http://localhost:8080/works/missingEndHour', { headers }).subscribe((work) => {
-        this.workWithMissingEndHour = work;
-        console.log(work);
-        this.calculateTimeDifference();
-        
-        if (work.endHour === null) {
-          this.isStart = false;
-        }
-      });
-    }
+    this.timeService.fetchWorkWithMissingEndHour().subscribe((work) => {
+      this.workWithMissingEndHour = work;
+      console.log(work);
+      this.calculateTimeDifference();
+      
+      if (work.endHour === null) {
+        this.isStart = false;
+      }
+    });
   }
-  
 
   calculateTimeDifference() {
     if (this.workWithMissingEndHour && !this.workWithMissingEndHour.endHour) {
@@ -88,20 +78,12 @@ export class TimeManagmentComponent  implements OnInit {
           startHour: new Date().toTimeString().split(' ')[0],
         };
 
-        const token = this.authService.getToken();
-
-        if (token) {
-          const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
-          });
-
-          this.http.post('http://localhost:8080/works/post', work, { headers }).subscribe((response) => {
-            console.log('Praca rozpoczęta.');
-            this.fetchWorkWithMissingEndHour();
-          });
-        }
+        this.timeService.startWork(work).subscribe((response) => {
+          console.log('Praca rozpoczęta.');
+          this.fetchWorkWithMissingEndHour();
+        });
       } else {
-        const workId = this.workWithMissingEndHour.workId;
+        const workId = this.workWithMissingEndHour.workId.toString(); // Konwersja na string
         const now = new Date();
 
         const updatedWork: WorkEnd = {
@@ -112,23 +94,16 @@ export class TimeManagmentComponent  implements OnInit {
         };
         console.log(updatedWork)
         
-        const token = this.authService.getToken();
-
-        if (token) {
-          const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
-          });
-
-          this.http.put(`http://localhost:8080/works/${workId}`, updatedWork, { headers }).subscribe((response) => {
-            console.log('Praca zakończona.');
-            this.fetchWorkWithMissingEndHour();
-          });
-        }
+        this.timeService.endWork(workId, updatedWork).subscribe((response) => {
+          console.log('Praca zakończona.');
+          this.fetchWorkWithMissingEndHour();
+        });
       }
     }
-}
+  }
+
+
   logout() {
     this.authService.removeToken();
   }
-
 }

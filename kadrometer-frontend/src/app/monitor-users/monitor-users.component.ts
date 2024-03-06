@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from '../auth.service';
-import { Account } from './account.model';
-import { Work } from '../time-managment/work.model';
+import { AuthService } from '../auth-config/auth.service';
+import { Account } from './models/account.model';
+import { Work } from '../time-managment/models/work.model';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { TDocumentDefinitions } from 'pdfmake/interfaces';
+import { MonitoringHttpService } from './services/monitoring-http.service';
 
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
@@ -24,56 +25,42 @@ export class MonitorUsersComponent implements OnInit {
 
 
 
-  constructor(private authService: AuthService, private http: HttpClient) {}
+  constructor(private authService: AuthService, private http: HttpClient, private monitoringService: MonitoringHttpService) {}
 
   ngOnInit() {
     this.fetchUsers();
   }
 
   fetchUsers() {
-    const token = this.authService.getToken();
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    this.http.get<Account[]>('http://localhost:8080/account/get', { headers }).subscribe((data) => {
+    this.monitoringService.fetchUsers().subscribe((data) => {
       this.users = data;
     });
   }
 
   searchWorkHistory() {
-    this.fetchWorkHistory(this.selectedUser, () => {
-        this.calculateTotalDuration();
-    });
-}
+    if (this.startDate && this.endDate) {
+      this.fetchWorkHistory(this.selectedUser, this.startDate, this.endDate);
+    }
+  }
 
   onUserChange() {
   }
 
-  fetchWorkHistory(userId: number, callback: () => void) {
-    if (!this.startDate || !this.endDate) {
-
-        console.error('Brak daty "od" lub "do".');
-        return;
-    }
-
-    const token = this.authService.getToken();
-    const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-    });
-
-    this.http.get<Work[]>(`http://localhost:8080/works/user/id/${userId}`, { headers }).subscribe((data) => {
-
-        this.workHistory = data.filter((work) => {
-            const workDate = new Date(work.startDate);
-            return this.startDate <= workDate.toISOString() && workDate.toISOString() <= this.endDate;
+  fetchWorkHistory(userId: number, startDate: string, endDate: string) {
+    if (this.monitoringService) {
+      const workHistoryObservable = this.monitoringService.fetchWorkHistory(userId, startDate, endDate);
+      if (workHistoryObservable) {
+        workHistoryObservable.subscribe((data) => {
+          if (data) {
+            this.workHistory = data;
+            this.calculateTotalDuration();
+          }
         });
-        console.log(this.workHistory);
-
-        callback();
-    });
-}
-
+      } else {console.error('Observable workHistoryObservable jest niezdefiniowany.');}
+    } else {console.error('Serwis monitorowania nie jest zdefiniowany.');}
+  }
+  
+  
 
   formatWorkDate(dateString: string): string {
     const date = new Date(dateString);
@@ -187,67 +174,55 @@ calculateDuration(work: Work): string {
     }
   }
 
-  downloadWorkHistory() {
-    const token = this.authService.getToken();
+  downloadWorkHistory(selectedUser: number) {
+    let userData: Account | undefined; // Zainicjowanie zmiennej userData
   
-    if (token) {
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
+    this.monitoringService.downloadWorkHistory(selectedUser).subscribe((data) => {
+      userData = data; 
+      if (userData) { 
+        const userEmail = userData.userEmail;
+        const userSurname = userData.surname;
+        const userName = userData.name;
+        const position = userData.position;
   
-      // Fetch user data from Spring
-      this.http.get<Account>(`http://localhost:8080/account/${this.selectedUser}`, { headers }).subscribe(
-        (userData) => {
-          // Extract user email and surname
-          const userEmail = userData.userEmail;
-          const userSurname = userData.surname;
-          const userName = userData.name;
-          const position = userData.position;
-  
-          
-  
-          const docDefinition: TDocumentDefinitions = {
-            content: [
-              'Historia pracy',
-              `Email: ${userEmail}`,
-              `Imie: ${userName}`,
-              `Nazwisko: ${userSurname}`,
-              `Stanowisko: ${position}`,
-              {
-                table: {
-                  body: [
-                    ['Stan', 'Data rozpoczęcia', 'Godzina rozpoczęcia', 'Data zakończenia', 'Godzina zakończenia', 'Czas trwania'],
-                    ...this.workHistory.map(work => [
-                      work.stage,
-                      this.formatWorkDate(work.startDate),
-                      work.startHour,
-                      this.formatWorkDate(work.endDate),
-                      work.endHour,
-                      this.calculateDurationPdf(work)
-                    ]),
-                  ],
-                },
+        const docDefinition: TDocumentDefinitions = {
+          content: [
+            'Historia pracy',
+            `Email: ${userEmail}`,
+            `Imie: ${userName}`,
+            `Nazwisko: ${userSurname}`,
+            `Stanowisko: ${position}`,
+            {
+              table: {
+                body: [
+                  ['Stan', 'Data rozpoczęcia', 'Godzina rozpoczęcia', 'Data zakończenia', 'Godzina zakończenia', 'Czas trwania'],
+                  ...this.workHistory.map(work => [
+                    work.stage,
+                    this.formatWorkDate(work.startDate),
+                    work.startHour,
+                    this.formatWorkDate(work.endDate),
+                    work.endHour,
+                    this.calculateDurationPdf(work)
+                  ]),
+                ],
               },
-              {
-                text: `Ilość godzin przepracowanych w danym okresie: ${this.totalDuration}`,
-                alignment: 'right',
-                margin: [0, 10, 0, 0],
-              },
-            ],
-          };
+            },
+            {
+              text: `Ilość godzin przepracowanych w danym okresie: ${this.totalDuration}`,
+              alignment: 'right',
+              margin: [0, 10, 0, 0],
+            },
+          ],
+        };
   
-          const pdfDocGenerator = pdfMake.createPdf(docDefinition);
-
-          const fileName = `work_history_${userName}_${userSurname}.pdf`;
-  
-          pdfDocGenerator.download(fileName);
-        },
-        (error) => {
-        }
-      );
-    }
+        const pdfDocGenerator = pdfMake.createPdf(docDefinition);
+        const fileName = `work_history_${userName}_${userSurname}.pdf`;
+        pdfDocGenerator.download(fileName);
+      } else {
+        console.error('Dane użytkownika są niezdefiniowane.');
+      }
+    });
   }
-
-
+  
   
 }
