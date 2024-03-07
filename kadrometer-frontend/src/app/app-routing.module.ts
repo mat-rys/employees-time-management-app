@@ -3,11 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component'; 
 import { StartPageComponent } from './start-page/start-page.component'; 
 import { RegistrationComponent } from './registration/registration.component';
-import { TimeManagmentComponent } from './time-managment/time-managment.component';
-import { SettingsComponent } from './settings/settings.component';
-import { MonitorUsersComponent } from './monitor-users/monitor-users.component';
-import { ActivationAccountComponent } from './activation-account/activation-account.component';
-import { WorkHistoryComponent } from './work-history/work-history.component';
+import { TimeManagmentComponent } from './user/time-managment/time-managment.component';
+import { SettingsComponent } from './user/settings/settings.component';
+import { MonitorUsersComponent } from './admin/monitor-users/monitor-users.component';
+import { ActivationAccountComponent } from './admin/activation-account/activation-account.component';
+import { WorkHistoryComponent } from './user/work-history/work-history.component';
 import { AuthGuard } from './auth-config/auth.guar';
 
 const routes: Routes = [

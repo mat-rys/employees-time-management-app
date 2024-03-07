@@ -1,7 +1,7 @@
 // work-history.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from '../../auth-config/auth.service';
+import { AuthService } from '../../../auth-config/auth.service';
 import { Work } from '../models/work.model';
 import { Account } from '../models/account.model';
 

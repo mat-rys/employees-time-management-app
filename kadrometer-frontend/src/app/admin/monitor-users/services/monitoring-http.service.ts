@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from '../../auth-config/auth.service';
+import { AuthService } from '../../../auth-config/auth.service';
 import { Account } from '../models/account.model';
-import { Work } from '../../time-managment/models/work.model';
+import { Work } from '../../../user/time-managment/models/work.model';
 import { Observable, of } from 'rxjs';
 
 @Injectable({

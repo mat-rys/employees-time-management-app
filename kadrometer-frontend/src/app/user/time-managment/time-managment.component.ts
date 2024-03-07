@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth-config/auth.service';
-import { Router } from '@angular/router';
-import { HttpClient} from '@angular/common/http';
+import { AuthService } from '../../auth-config/auth.service';
 import { Work } from './models/work.model';
 import { interval, Subscription } from 'rxjs'; 
 import { WorkEnd } from './models/work-end.model';
-import { Time } from '@angular/common';
 import { TimeManagmentService } from './services/time-managment.service';
 
 @Component({

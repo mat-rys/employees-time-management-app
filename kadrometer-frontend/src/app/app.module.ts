@@ -8,11 +8,11 @@ import { AppComponent } from './app.component';
 import { StartPageComponent } from './start-page/start-page.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
-import { TimeManagmentComponent } from './time-managment/time-managment.component';
-import { SettingsComponent } from './settings/settings.component';
-import { ActivationAccountComponent } from './activation-account/activation-account.component';
-import { MonitorUsersComponent } from './monitor-users/monitor-users.component';
-import { WorkHistoryComponent } from './work-history/work-history.component';
+import { TimeManagmentComponent } from './user/time-managment/time-managment.component';
+import { SettingsComponent } from './user/settings/settings.component';
+import { ActivationAccountComponent } from './admin/activation-account/activation-account.component';
+import { MonitorUsersComponent } from './admin/monitor-users/monitor-users.component';
+import { WorkHistoryComponent } from './user/work-history/work-history.component';
 
 @NgModule({
   declarations: [
