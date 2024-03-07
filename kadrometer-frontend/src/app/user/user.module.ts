@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { WorkHistoryComponent } from './work-history/work-history.component';
 import { TimeManagmentComponent } from './time-managment/time-managment.component';
 import { SettingsComponent } from './settings/settings.component';
+import { NavbarUserComponent } from './navbar-user/navbar-user.component';
 
 const routes: Routes = [
   { path: 'history-work', component: WorkHistoryComponent },
@@ -14,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [WorkHistoryComponent, TimeManagmentComponent, SettingsComponent],
+  declarations: [WorkHistoryComponent, TimeManagmentComponent, SettingsComponent, NavbarUserComponent],
   imports: [  
     FormsModule,
     HttpClientModule,

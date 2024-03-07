@@ -5,18 +5,8 @@
 <body>
     <div class="background-content-photo">
     </div>
-
-    <section class="star-web">
-        <nav class="nav-list">
-          <div class="nav-buttons">
-            <a href="http://localhost:4200/user/time-managment"><button><i ></i> Czas pracy</button></a>
-            <a href="http://localhost:4200/user/settings"><button><i ></i> Opcje</button></a>
-            <a href="http://localhost:4200/user/history-work"><button><i ></i>Historia pracy</button></a>
-            <a href="http://localhost:4200/login" (click)="logout()" ><button><i class="fas fa-sign-out-alt"></i> Wyloguj się</button></a>
-          </div>
-        </nav>
-      </section>
-
+      <app-navbar-user (logout)="logout()"></app-navbar-user>
+       
       <section class="settings-container">
         <div class="settings-row">
             <span class="settings-label">Email:</span>
