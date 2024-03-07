@@ -7,8 +7,6 @@ import { AppComponent } from './app.component';
 import { StartPageComponent } from './start-page/start-page.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
-import { ActivationAccountComponent } from './admin/activation-account/activation-account.component';
-import { MonitorUsersComponent } from './admin/monitor-users/monitor-users.component';
 
 @NgModule({
   declarations: [
@@ -16,8 +14,6 @@ import { MonitorUsersComponent } from './admin/monitor-users/monitor-users.compo
     StartPageComponent,
     LoginComponent,
     RegistrationComponent,
-    ActivationAccountComponent,
-    MonitorUsersComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,9 +8,10 @@ import { ActivationAccountComponent } from './admin/activation-account/activatio
 import { AuthGuard } from './auth-config/auth.guar';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'registration', component: RegistrationComponent },
+  {path: 'login', component: LoginComponent },
+  {path: 'registration', component: RegistrationComponent },
   {path: 'start-page',component: StartPageComponent},
+  {path: '', redirectTo: 'start-page', pathMatch: 'full' },
   {
     path: 'user',
     loadChildren: () => import('./user/user.module').then(m => m.UserModule),
@@ -18,21 +19,12 @@ const routes: Routes = [
     data: { roles: ['USER'] },
   },
   {
-    path: 'monitor-users',
-    component: MonitorUsersComponent,
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
     canActivate: [AuthGuard],
     data: { roles: ['ADMIN'] },
-  },
-  {
-    path: 'activation-account',
-    component: ActivationAccountComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['ADMIN'] },
-  },
-  { path: '', redirectTo: 'start-page', pathMatch: 'full' },
+  }
 ];
-
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

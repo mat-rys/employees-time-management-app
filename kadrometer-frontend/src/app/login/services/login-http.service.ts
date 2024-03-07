@@ -29,7 +29,7 @@ export class LoginHttpService {
         if (userRole === 'USER') {
           this.router.navigate(['user/time-managment']);
         } else if (userRole === 'ADMIN') {
-          this.router.navigate(['/monitor-users']);
+          this.router.navigate(['/admin/monitor-users']);
         }
       }
     );
