@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { MonitorUsersComponent } from './monitor-users/monitor-users.component';
 import { ActivationAccountComponent } from './activation-account/activation-account.component';
+import { NavbarAdminComponent } from './navbar-admin/navbar-admin.component';
 
 
 const routes: Routes = [
@@ -13,7 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [MonitorUsersComponent, ActivationAccountComponent],
+  declarations: [MonitorUsersComponent, ActivationAccountComponent, NavbarAdminComponent],
   imports: [  
     FormsModule,
     HttpClientModule,
