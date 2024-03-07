@@ -27,7 +27,7 @@ export class LoginHttpService {
 
         const userRole = tokenPayload['role'];
         if (userRole === 'USER') {
-          this.router.navigate(['/time-managment']);
+          this.router.navigate(['user/time-managment']);
         } else if (userRole === 'ADMIN') {
           this.router.navigate(['/monitor-users']);
         }
