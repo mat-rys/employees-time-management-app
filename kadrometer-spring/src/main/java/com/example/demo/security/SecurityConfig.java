@@ -24,8 +24,6 @@ public class SecurityConfig {
     private final JpaUserDetailsService jpaUserDetailsService;
 
 
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity

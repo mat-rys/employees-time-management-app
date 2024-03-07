@@ -21,7 +21,6 @@ public class WorkController {
     private final WorkService workService;
     private final AccountServiceImpl accountService;
 
-
     @GetMapping("/missingEndHour")
     public ResponseEntity<Work> getWorksWithMissingEndHourForEmail(Principal principal) {
         Work works = workService.findWorksWithMissingEndHourForEmail(principal.getName());
@@ -53,11 +52,7 @@ public class WorkController {
     public ResponseEntity<Work> updateWork(@PathVariable Integer workId, @RequestBody Work work) {
         System.out.println(work);
         Work updatedWork = workService.updateWork(workId, work);
-        if (updatedWork != null) {
-            return new ResponseEntity<>(updatedWork, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return updatedWork != null ? new ResponseEntity<>(updatedWork, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{workId}")

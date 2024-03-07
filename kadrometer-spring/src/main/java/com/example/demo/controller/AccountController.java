@@ -27,24 +27,21 @@ public class AccountController {
 
     @GetMapping("/UserPrincipal")
     public ResponseEntity<AccountDTO> getUserPrincipal(Principal principal) {
-        Optional<Account> accountOptional = accountServiceImpl.findByUserEmail(principal.getName());
-
-        if (accountOptional.isPresent()) {
-            Account account = accountOptional.get();
-            AccountDTO accountDTO = new AccountDTO();
-            accountDTO.setAccountId(account.getAccountId());
-            accountDTO.setUserEmail(account.getUserEmail());
-            accountDTO.setUserPassword(account.getUserPassword());
-            accountDTO.setRole(account.getRole());
-            accountDTO.setName(account.getName());
-            accountDTO.setSurname(account.getSurname());
-            accountDTO.setPosition(account.getPosition());
-
-            return ResponseEntity.ok(accountDTO);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return accountServiceImpl.findByUserEmail(principal.getName())
+                .map(account -> {
+                    AccountDTO accountDTO = new AccountDTO();
+                    accountDTO.setAccountId(account.getAccountId());
+                    accountDTO.setUserEmail(account.getUserEmail());
+                    accountDTO.setUserPassword(account.getUserPassword());
+                    accountDTO.setRole(account.getRole());
+                    accountDTO.setName(account.getName());
+                    accountDTO.setSurname(account.getSurname());
+                    accountDTO.setPosition(account.getPosition());
+                    return ResponseEntity.ok(accountDTO);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
     @GetMapping("/{id}")
     public Optional<Account> getAllAccounts(@PathVariable Integer id) {
         return accountServiceImpl.findById(id);

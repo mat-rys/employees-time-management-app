@@ -93,12 +93,12 @@ public class AuthenticationService  {
 
     public String generateToken(Account account) {
         Instant now = Instant.now();
-        String role = account.getRole(); // Przykład pobierania roli ze studenta
+        String role = account.getRole();
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(now)
                 .expiresAt(now.plus(1, ChronoUnit.HOURS))
-                .subject(account.getUserEmail()) // Przykład ustawienia emaila jako subject
+                .subject(account.getUserEmail())
                 .claim("role", role)
                 .build();
         return jwtEncoder().encode(JwtEncoderParameters.from(claims)).getTokenValue();

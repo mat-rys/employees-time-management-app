@@ -11,9 +11,7 @@ import java.util.List;
 public interface WorkRepo extends JpaRepository<Work,Integer> {
     @Query("SELECT w FROM Work w WHERE w.account.userEmail = :email AND w.endHour IS NULL")
     Work findWorksWithMissingEndHourForEmail(@Param("email") String email);
-
     List<Work> findAllByAccountUserEmail(String email);
-
     List<Work> findAllByAccount_AccountId(Integer accountId);
 
 

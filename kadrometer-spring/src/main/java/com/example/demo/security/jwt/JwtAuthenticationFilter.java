@@ -28,7 +28,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION); //Bearer eyJhb...
+        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         final String prefix = "Bearer ";
         if (authHeader == null || !authHeader.startsWith(prefix)) {
             filterChain.doFilter(request, response); // brak nagłówka z tokenem, tylko przetwarzanie przez kolejne filtry

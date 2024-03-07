@@ -10,10 +10,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 @EnableConfigurationProperties(RsaKeyProperties.class)
 public class KadromierzApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(KadromierzApplication.class, args);
 	}
-
-
 }

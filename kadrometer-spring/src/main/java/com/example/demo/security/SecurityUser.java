@@ -17,7 +17,6 @@ import java.util.Collection;
 public class SecurityUser implements UserDetails {
     private final Account userAccount;
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.stream(userAccount
@@ -26,7 +25,6 @@ public class SecurityUser implements UserDetails {
                 .map(SimpleGrantedAuthority::new)
                 .toList();
     }
-
     @Override
     public String getPassword() {
         return userAccount.getUserPassword();

@@ -40,37 +40,14 @@ public class WorkServiceImpl implements WorkService {
 
     @Override
     public Work updateWork(Integer workId, Work work) {
-        Optional<Work> existingWorkOptional = workRepo.findById(workId);
-
-        if (existingWorkOptional.isPresent()) {
-            Work existingWork = existingWorkOptional.get();
-
-            if (work.getStartDate() != null) {
-                existingWork.setStartDate(work.getStartDate());
-            }
-
-            if (work.getEndDate() != null) {
-                existingWork.setEndDate(work.getEndDate());
-            }
-
-            if (work.getStage() != null) {
-                existingWork.setStage(work.getStage());
-            }
-
-            if (work.getStartHour() != null) {
-                existingWork.setStartHour(work.getStartHour());
-            }
-
-            if (work.getEndHour() != null) {
-                existingWork.setEndHour(work.getEndHour());
-            }
-
+        return workRepo.findById(workId).map(existingWork -> {
+            if (work.getStartDate() != null) existingWork.setStartDate(work.getStartDate());
+            if (work.getEndDate() != null) existingWork.setEndDate(work.getEndDate());
+            if (work.getStage() != null) existingWork.setStage(work.getStage());
+            if (work.getStartHour() != null) existingWork.setStartHour(work.getStartHour());
+            if (work.getEndHour() != null) existingWork.setEndHour(work.getEndHour());
             return workRepo.save(existingWork);
-        } else {
-            // Tutaj możesz obsłużyć przypadek, gdy praca o podanym ID nie istnieje.
-            // Na przykład rzuć wyjątek lub zwróć null.
-            return null;
-        }
+        }).orElse(null);
     }
 
     @Override
