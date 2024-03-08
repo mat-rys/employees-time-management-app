@@ -2,9 +2,6 @@
 ## Project Overview
 The project aims to streamline employee payroll management and work supervision with the capability of easily extracting data, for instance, into PDFs sorted according to custom guidelines, generating ready-made employee hour logs within a specified range, sorted as required.
 
-## **✏️ Important information:**
-Project need improvment with good code practice and architecture in frontend, I was.'t using decorator properly back then.
-
 ## **🚀 The project model:**
 ![image](https://github.com/mat-rys/Kadrometer_Spring_Angualr_API/assets/98847639/4225d85b-0db9-4de1-849f-0662f5dd45f8)
 
@@ -18,6 +15,12 @@ Front-end
 
 UI/UX
 ![Figma](https://img.shields.io/badge/-Figma-F24E1E?style=flat-square&logo=figma&logoColor=white)
+
+## **✏️ How to run it:**
+
+1. Configure the database in your application properties on your computer.
+2. Run the backend, for example in IntelliJ IDEA. The tables will be created automatically if you have a good connection to the database.
+3. Start the frontend, for example in Visual Studio Code, using the command in the terminal "ng serve".
 
 ## **📚 The look of website:**
 ![image](https://github.com/mat-rys/Kadrometer_Spring_Angualr_API/assets/98847639/18286c04-8a49-454a-9bbe-21805c4829bc)
