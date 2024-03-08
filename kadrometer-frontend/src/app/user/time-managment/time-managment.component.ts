@@ -33,19 +33,20 @@ export class TimeManagmentComponent  implements OnInit {
 
   private calculateTimeDifference() {
     if (this.workWithMissingEndHour && !this.workWithMissingEndHour.endHour) {
-      const startDateTime = Date.parse(this.workWithMissingEndHour.startDate + 'T' + this.workWithMissingEndHour.startHour);
-      const now = new Date();
+      const datePart = this.workWithMissingEndHour.startDate.split('T')[0];
+      const startDateTime = Date.parse(datePart + 'T' + this.workWithMissingEndHour.startHour);
 
+      const now = new Date();
       const timeDifferenceInSeconds = (now.getTime() - startDateTime) / 1000;
 
       const hours = Math.floor(timeDifferenceInSeconds / 3600);
       const minutes = Math.floor((timeDifferenceInSeconds % 3600) / 60);
       const seconds = Math.floor(timeDifferenceInSeconds % 60);
-
       this.timeDifference = `${hours}h:${minutes}m:${seconds}s`;
     } else {
       this.timeDifference = "0h:0m:0s"; 
     }
+
   }
 
   async toggleStartStop() {

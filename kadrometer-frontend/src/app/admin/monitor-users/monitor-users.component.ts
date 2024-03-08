@@ -88,74 +88,48 @@ export class MonitorUsersComponent implements OnInit {
   }
   
   parseDateTime(dateTimeStr: string): Date | null {
-    const dateTimeParts = dateTimeStr.split(' ');
-    const dateParts = dateTimeParts[0].split('-');
-    const timeParts = dateTimeParts[1].split(':');
-
-    if (dateParts.length === 3 && timeParts.length === 3) {
-        const year = parseInt(dateParts[0]);
-        const month = parseInt(dateParts[1]) - 1;
-        const day = parseInt(dateParts[2]);
-        const hours = parseInt(timeParts[0]);
-        const minutes = parseInt(timeParts[1]);
-        const seconds = parseInt(timeParts[2]);
-
-        return new Date(Date.UTC(year, month, day, hours, minutes, seconds));
-    }
-    return null; 
-}
+    const [datePart, timePart] = dateTimeStr.split(' ');
+    const [year, month, day] = datePart.split('-').map(Number);
+    const [hours, minutes, seconds] = timePart.split(':').map(Number);
+  
+    return (year && month && day && hours && minutes && seconds)
+      ? new Date(Date.UTC(year, month - 1, day, hours, minutes, seconds))
+      : null;
+  }
 
 
   
-calculateDuration(work: Work): string {
-  if (!work.startHour) {
-    return 'Brak godziny rozpoczęcia';
-  }
-
-  if (!work.endHour) {
-    return 'Praca w toku';
-  }
-
-  console.log('startDate:', work.startDate);
-  console.log('endDate:', work.endDate);
-
-  const startDate = this.parseDateTime(`${work.startDate} ${work.startHour}`);
-  const endDate = this.parseDateTime(`${work.endDate} ${work.endHour}`);
-
-    console.log('startDate:', startDate);
-    console.log('endDate:', endDate);
+  calculateDuration(work: Work): string {
+    if (!work.startHour) {return 'Brak godziny rozpoczęcia';}
+    if (!work.endHour) {return 'Praca w toku';}
   
+    const startDate = this.parseDateTime(`${work.startDate} ${work.startHour}`);
+    const endDate = this.parseDateTime(`${work.endDate} ${work.endHour}`);
+    
     if (startDate && endDate) {
       const timeDifference = endDate.getTime() - startDate.getTime();
-      console.log('timeDifference:', timeDifference);
-  
+    
       const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
       const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-  
-      if (days > 0) {
-        return `${days}d ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-      } else {
-        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-      }
+    
+      return days > 0
+        ? `${days}d ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+        : `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     } else {
       return 'Nieprawidłowa data lub godzina';
     }
   }
+  
 
   logout() {
     this.authService.removeToken();
   }
 
   calculateDurationPdf(work: Work): string {
-    if (!work.startHour) {
-      return 'Brak godziny rozpoczęcia';
-    }
-  
-    if (!work.endHour) {
-      return 'Praca w toku';
-    }
+    if (!work.startHour) {return 'Brak godziny rozpoczęcia'; }
+    if (!work.endHour) {return 'Praca w toku';}
   
     const startDate = this.parseDateTime(`${work.startDate} ${work.startHour}`);
     const endDate = this.parseDateTime(`${work.endDate} ${work.endHour}`);
@@ -172,7 +146,7 @@ calculateDuration(work: Work): string {
     }
   }
 
-  downloadWorkHistory(selectedUser: number) {
+  downloadWorkHistoryPdf(selectedUser: number) {
     let userData: Account | undefined; 
   
     this.monitoringService.downloadWorkHistory(selectedUser).subscribe((data) => {

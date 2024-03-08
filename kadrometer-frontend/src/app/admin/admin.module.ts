@@ -7,7 +7,6 @@ import { MonitorUsersComponent } from './monitor-users/monitor-users.component';
 import { ActivationAccountComponent } from './activation-account/activation-account.component';
 import { NavbarAdminComponent } from './navbar-admin/navbar-admin.component';
 
-
 const routes: Routes = [
   { path: 'monitor-users', component: MonitorUsersComponent },
   { path: 'activation-account', component: ActivationAccountComponent },
