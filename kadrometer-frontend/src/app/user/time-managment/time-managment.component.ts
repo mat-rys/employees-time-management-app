@@ -17,42 +17,26 @@ export class TimeManagmentComponent  implements OnInit {
   timeDifference!: string;
   private subscription!: Subscription;
 
-
-  ngOnInit() {
-    this.fetchWorkWithMissingEndHour(); 
+  async ngOnInit() {
+    await this.fetchWorkWithMissingEndHour(); 
     this.subscription = interval(1000).subscribe(() => {this.calculateTimeDifference(); });
   }   
-  
 
-  fetchWorkWithMissingEndHour() {
-    this.timeService.fetchWorkWithMissingEndHour().subscribe((work) => {
-      this.workWithMissingEndHour = work;
-      console.log(work);
-      this.calculateTimeDifference();
-      
-      if (work.endHour === null) {
-        this.isStart = false;
-      }
-    });
+  private async fetchWorkWithMissingEndHour() {
+    const work = await this.timeService.fetchWorkWithMissingEndHour().toPromise();
+    this.workWithMissingEndHour = work;
+    this.calculateTimeDifference();
+    if (work.endHour === null) {
+      this.isStart = false;
+    }
   }
 
-  calculateTimeDifference() {
+  private calculateTimeDifference() {
     if (this.workWithMissingEndHour && !this.workWithMissingEndHour.endHour) {
-      const startDateTimeParts = this.workWithMissingEndHour.startHour.split(':');
-      const startDateParts = this.workWithMissingEndHour.startDate.split('T')[0].split('-');
-
-      const startDateTime = new Date(
-          parseInt(startDateParts[0]), 
-          parseInt(startDateParts[1]) - 1, 
-          parseInt(startDateParts[2]),
-          parseInt(startDateTimeParts[0]), 
-          parseInt(startDateTimeParts[1]), 
-          parseInt(startDateTimeParts[2])
-      );
-
+      const startDateTime = Date.parse(this.workWithMissingEndHour.startDate + 'T' + this.workWithMissingEndHour.startHour);
       const now = new Date();
 
-      const timeDifferenceInSeconds = (now.getTime() - startDateTime.getTime()) / 1000;
+      const timeDifferenceInSeconds = (now.getTime() - startDateTime) / 1000;
 
       const hours = Math.floor(timeDifferenceInSeconds / 3600);
       const minutes = Math.floor((timeDifferenceInSeconds % 3600) / 60);
@@ -64,9 +48,8 @@ export class TimeManagmentComponent  implements OnInit {
     }
   }
 
-  toggleStartStop() {
+  async toggleStartStop() {
     if (window.confirm('Czy na pewno chcesz ' + (this.isStart ? 'rozpocząć pracę?' : 'zakończyć pracę?'))) {
-      console.log('Funkcja toggleStartStop została wywołana.');
       this.isStart = !this.isStart;
       if (!this.isStart) {
         const work: any = {
@@ -75,12 +58,10 @@ export class TimeManagmentComponent  implements OnInit {
           startHour: new Date().toTimeString().split(' ')[0],
         };
 
-        this.timeService.startWork(work).subscribe((response) => {
-          console.log('Praca rozpoczęta.');
-          this.fetchWorkWithMissingEndHour();
-        });
+        await this.timeService.startWork(work).toPromise();
+        await this.fetchWorkWithMissingEndHour();
       } else {
-        const workId = this.workWithMissingEndHour.workId.toString(); // Konwersja na string
+        const workId = this.workWithMissingEndHour.workId.toString();
         const now = new Date();
 
         const updatedWork: WorkEnd = {
@@ -89,16 +70,12 @@ export class TimeManagmentComponent  implements OnInit {
           endDate: new Date().toISOString().split('T')[0],
           endHour: now.toTimeString().split(' ')[0]
         };
-        console.log(updatedWork)
         
-        this.timeService.endWork(workId, updatedWork).subscribe((response) => {
-          console.log('Praca zakończona.');
-          this.fetchWorkWithMissingEndHour();
-        });
+        await this.timeService.endWork(workId, updatedWork).toPromise();
+        await this.fetchWorkWithMissingEndHour();
       }
     }
   }
-
 
   logout() {
     this.authService.removeToken();

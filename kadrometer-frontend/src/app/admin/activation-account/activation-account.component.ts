@@ -24,33 +24,22 @@ export class ActivationAccountComponent implements OnInit {
 
   activateAccount(accountId: number) {
     const confirmResult = window.confirm('Czy na pewno chcesz aktywować tego użytkownika?');
-  
-    if (confirmResult) {
-      const updatedData = { role: 'USER' };
-  
-      this.activationService.activateAccount(accountId, updatedData).subscribe(() => {
-        this.fetchUsersWithNullRole();
-      });
-    }
+    confirmResult ? this.activationService.activateAccount(accountId, { role: 'USER' }).subscribe(() => {
+      this.fetchUsersWithNullRole();
+    }) : null;
   }
-
+  
   confirmActivation(accountId: number) {
     const confirmResult = window.confirm('Czy na pewno chcesz aktywować tego użytkownika?');
-    if (confirmResult) {
-      this.activateAccount(accountId);
-    }
+    confirmResult ? this.activateAccount(accountId) : null;
   }
-
+  
   confirmDelete(accountId: number) {
     const confirmResult = window.confirm('Czy na pewno chcesz usunąć to konto?');
-  
-    if (confirmResult) {
-      this.activationService.deleteAccount(accountId).subscribe(() => {
-        this.fetchUsersWithNullRole();
-      });
-    }
+    confirmResult ? this.activationService.deleteAccount(accountId).subscribe(() => {
+      this.fetchUsersWithNullRole();
+    }) : null;
   }
-  
 
   logout() {
     this.authService.removeToken();

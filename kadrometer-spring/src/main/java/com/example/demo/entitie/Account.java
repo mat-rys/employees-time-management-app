@@ -67,7 +67,7 @@
         private String surname;
         private String position;
 
-        @OneToMany(mappedBy = "account") // Relacja jeden do wielu
-        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // Ta adnotacja uniemożliwi serializację (służy do odczytu)
-        private List<Work> works; // Lista prac związanych z tym kontem
+        @OneToMany(mappedBy = "account")
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        private List<Work> works;
     }

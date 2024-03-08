@@ -23,8 +23,6 @@ export class MonitorUsersComponent implements OnInit {
   endDate!: string;
   totalDuration: string = '00:00:00'; 
 
-
-
   constructor(private authService: AuthService, private http: HttpClient, private monitoringService: MonitoringHttpService) {}
 
   ngOnInit() {
@@ -175,7 +173,7 @@ calculateDuration(work: Work): string {
   }
 
   downloadWorkHistory(selectedUser: number) {
-    let userData: Account | undefined; // Zainicjowanie zmiennej userData
+    let userData: Account | undefined; 
   
     this.monitoringService.downloadWorkHistory(selectedUser).subscribe((data) => {
       userData = data; 

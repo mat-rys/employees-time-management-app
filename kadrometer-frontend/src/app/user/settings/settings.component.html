@@ -1,7 +1,3 @@
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
-</head>
 <body>
     <div class="background-content-photo">
     </div>
@@ -15,7 +11,7 @@
         </div>
         <div class="change-input" *ngIf="showEmailInput">
             <input type="text" [(ngModel)]="newEmail" placeholder="New email">
-            <button (click)="updateEmail(account.accountId)">Update</button>
+            <button (click)="updateAccount(account.accountId, 'userEmail', newEmail)">Update</button>
         </div>
     
         <div class="settings-row">
@@ -25,7 +21,7 @@
         </div>
         <div class="change-input" *ngIf="showNameInput">
             <input type="text" [(ngModel)]="newName" placeholder="New name">
-            <button (click)="updateName(account.accountId)">Update</button>
+            <button (click)="updateAccount(account.accountId, 'name', newName)">Update</button>
         </div>
     
         <div class="settings-row">
@@ -35,7 +31,7 @@
         </div>
         <div class="change-input" *ngIf="showSurnameInput">
             <input type="text" [(ngModel)]="newSurname" placeholder="New surname">
-            <button (click)="updateSurname(account.accountId)">Update</button>
+            <button (click)="updateAccount(account.accountId, 'surname', newSurname)">Update</button>
         </div>
     
         <div class="settings-row">
@@ -45,7 +41,7 @@
         </div>
         <div class="change-input" *ngIf="showPositionInput">
             <input type="text" [(ngModel)]="newPosition" placeholder="New position">
-            <button (click)="updatePosition(account.accountId)">Update</button>
+            <button (click)="updateAccount(account.accountId, 'position', newPosition)">Update</button>
         </div>
     </section>
     

@@ -44,43 +44,36 @@ export class SettingsComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  updateEmail(accountId: number) {
-    if (this.newEmail) {
-      this.settingsService.updateAccount(accountId, { userEmail: this.newEmail }).subscribe(() => {
+  updateAccount(accountId: number, field: string, newValue: string) {
+    if (newValue) {
+      let updateData: Record<string, any> = {};
+      updateData[field] = newValue;
+      this.settingsService.updateAccount(accountId, updateData).subscribe(() => {
         this.loadUserAccount();
+        this.resetField(field);
+      });
+    }
+  }
+  
+  resetField(field: string) {
+    switch (field) {
+      case 'userEmail':
         this.showEmailInput = false;
         this.newEmail = '';
-      });
-    }
-  }
-
-  updateName(accountId: number) {
-    if (this.newName) {
-      this.settingsService.updateAccount(accountId, { name: this.newName }).subscribe(() => {
-        this.loadUserAccount();
+        break;
+      case 'name':
         this.showNameInput = false;
         this.newName = '';
-      });
-    }
-  }
-
-  updateSurname(accountId: number) {
-    if (this.newSurname) {
-      this.settingsService.updateAccount(accountId, { surname: this.newSurname }).subscribe(() => {
-        this.loadUserAccount();
+        break;
+      case 'surname':
         this.showSurnameInput = false;
         this.newSurname = '';
-      });
-    }
-  }
-
-  updatePosition(accountId: number) {
-    if (this.newPosition) {
-      this.settingsService.updateAccount(accountId, { position: this.newPosition }).subscribe(() => {
-        this.loadUserAccount();
+        break;
+      case 'position':
         this.showPositionInput = false;
         this.newPosition = '';
-      });
+        break;
     }
   }
+  
 }
