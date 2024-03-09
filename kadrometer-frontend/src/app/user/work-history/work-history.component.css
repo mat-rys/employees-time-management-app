@@ -23,7 +23,7 @@ body {
 }
 
 .work-container {
-    margin-top: 180px;
+    margin-top: 300px;
 }
 
 .work-item {
@@ -135,6 +135,44 @@ body {
     font-size: 16px;
 }
  
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out;
+}
+
+input:focus {
+    border-color: #e64a19;
+    outline: none;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out;
+}
+
+select:focus {
+    border-color: #e64a19;
+    outline: none;
+}
+
   
   
   

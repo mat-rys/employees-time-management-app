@@ -18,7 +18,6 @@ export class TimeManagmentService {
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
-  
       return this.http.get<Work>('http://localhost:8080/works/missingEndHour', { headers });
     }
     return of(null);

@@ -74,7 +74,6 @@ export class WorkHistoryComponent implements OnInit {
     }
   }
   
-  
 
   calculateDurationInMinutes(work: Work): number | null {
     if (!work.startHour || !work.endHour) {
@@ -94,13 +93,13 @@ export class WorkHistoryComponent implements OnInit {
   }
   
 
-  
- 
   formatWorkDate(dateString: string): string {
+    if (dateString === null) {return '';}
     const date = new Date(dateString);
     const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
     return formattedDate;
-  }
+}
+
   
 
   logout() {
