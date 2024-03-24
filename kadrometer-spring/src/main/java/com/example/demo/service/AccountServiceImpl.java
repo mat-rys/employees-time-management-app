@@ -50,14 +50,15 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Optional<Account> updateAccountData(Integer accountId, Account updatedData) {
         return accountRepo.findById(accountId).map(account -> {
-            if (updatedData.getRole() != null) account.setRole(updatedData.getRole());
-            if (updatedData.getName() != null) account.setName(updatedData.getName());
-            if (updatedData.getSurname() != null) account.setSurname(updatedData.getSurname());
-            if (updatedData.getPosition() != null) account.setPosition(updatedData.getPosition());
+            Optional.ofNullable(updatedData.getRole()).ifPresent(account::setRole);
+            Optional.ofNullable(updatedData.getName()).ifPresent(account::setName);
+            Optional.ofNullable(updatedData.getSurname()).ifPresent(account::setSurname);
+            Optional.ofNullable(updatedData.getPosition()).ifPresent(account::setPosition);
             accountRepo.save(account);
             return account;
         });
     }
+
 
 
 }

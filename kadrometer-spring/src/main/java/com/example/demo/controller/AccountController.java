@@ -4,8 +4,7 @@ import com.example.demo.entitie.Account;
 import com.example.demo.entitie.AccountDTO;
 import com.example.demo.service.AccountServiceImpl;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,14 +28,8 @@ public class AccountController {
     public ResponseEntity<AccountDTO> getUserPrincipal(Principal principal) {
         return accountServiceImpl.findByUserEmail(principal.getName())
                 .map(account -> {
-                    AccountDTO accountDTO = new AccountDTO();
-                    accountDTO.setAccountId(account.getAccountId());
-                    accountDTO.setUserEmail(account.getUserEmail());
-                    accountDTO.setUserPassword(account.getUserPassword());
-                    accountDTO.setRole(account.getRole());
-                    accountDTO.setName(account.getName());
-                    accountDTO.setSurname(account.getSurname());
-                    accountDTO.setPosition(account.getPosition());
+                    ModelMapper modelMapper = new ModelMapper();
+                    AccountDTO accountDTO = modelMapper.map(account, AccountDTO.class);
                     return ResponseEntity.ok(accountDTO);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());

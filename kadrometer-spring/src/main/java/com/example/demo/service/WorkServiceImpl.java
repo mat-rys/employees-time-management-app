@@ -2,20 +2,17 @@ package com.example.demo.service;
 
 import com.example.demo.entitie.Work;
 import com.example.demo.repositories.WorkRepo;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class WorkServiceImpl implements WorkService {
     private final WorkRepo workRepo;
-
-    @Autowired
-    public WorkServiceImpl(WorkRepo workRepo) {
-        this.workRepo = workRepo;
-    }
 
     @Override
     public Work findWorksWithMissingEndHourForEmail(String email) {
@@ -40,11 +37,11 @@ public class WorkServiceImpl implements WorkService {
     @Override
     public Work updateWork(Integer workId, Work work) {
         return workRepo.findById(workId).map(existingWork -> {
-            if (work.getStartDate() != null) existingWork.setStartDate(work.getStartDate());
-            if (work.getEndDate() != null) existingWork.setEndDate(work.getEndDate());
-            if (work.getStage() != null) existingWork.setStage(work.getStage());
-            if (work.getStartHour() != null) existingWork.setStartHour(work.getStartHour());
-            if (work.getEndHour() != null) existingWork.setEndHour(work.getEndHour());
+            Optional.ofNullable(work.getStartDate()).ifPresent(existingWork::setStartDate);
+            Optional.ofNullable(work.getEndDate()).ifPresent(existingWork::setEndDate);
+            Optional.ofNullable(work.getStage()).ifPresent(existingWork::setStage);
+            Optional.ofNullable(work.getStartHour()).ifPresent(existingWork::setStartHour);
+            Optional.ofNullable(work.getEndHour()).ifPresent(existingWork::setEndHour);
             return workRepo.save(existingWork);
         }).orElse(null);
     }
