@@ -35,6 +35,7 @@ public class WorkController {
 
     @GetMapping("/{workId}")
     public ResponseEntity<Work> getWorkById(@PathVariable Integer workId) {
+        System.out.println("hej hej hej"+workId);
         return workService.getWorkById(workId)
                 .map(work -> new ResponseEntity<>(work, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
