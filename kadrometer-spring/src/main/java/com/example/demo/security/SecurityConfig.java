@@ -34,7 +34,7 @@ public class SecurityConfig {
                 })
                 .authorizeHttpRequests(auth ->{
                     auth.requestMatchers("/account/**", "/works/**", "/api/role").authenticated();
-                    auth.requestMatchers("/api/register", "/api/login").anonymous();
+                    auth.requestMatchers("/api/register", "/api/login","/test/**").anonymous();
                 })
                 .csrf().disable()
                 .sessionManagement()

@@ -1,4 +1,3 @@
-/* login.component.css */
 body {
     margin: 0;
     overflow: hidden;
@@ -25,8 +24,8 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 300px;
-    padding: 20px;
+    width: 350px;  /* Increased width */
+    padding: 30px;  /* Increased padding */
     background-color: #f7f7f7;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -35,43 +34,48 @@ body {
 }
 
 h2 {
-    font-size: 1.5rem;
+    font-size: 1.75rem;  /* Slightly larger font size */
+    margin-bottom: 20px;  /* Increased margin */
 }
 
 .form-group {
     text-align: left;
-    margin: 10px 0;
+    margin: 15px 0;  /* Increased margin */
 }
 
 label {
     display: block;
     font-weight: bold;
+    margin-bottom: 5px;  /* Added margin for better spacing */
 }
 
 input {
-    width: 100%;
-    padding: 8px;
+    width: 94%;
+    padding: 10px;  /* Increased padding */
     border: 1px solid #ccc;
     border-radius: 3px;
+    font-size: 1rem;  /* Larger font size for better readability */
 }
 
 button {
     width: 100%;
-    padding: 10px;
+    padding: 12px;  /* Increased padding */
     background-color: #e64a19;
     color: #fff;
     border: none;
-    border-radius: 3px;
+    border-radius: 25px; /* Rounded corners */
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, border-radius 0.3s; /* Added border-radius transition */
+    font-size: 1rem;  /* Larger font size */
 }
 
 button:hover {
-    background-color: #e64a19;
+    background-color: #d84315;
+    border-radius: 35px; /* Slightly rounder corners on hover */
 }
 
 p {
-    margin: 15px 0;
+    margin: 20px 0;  /* Increased margin */
 }
 
 a {
@@ -82,4 +86,10 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 10px;
+    font-size: 0.9rem;  /* Slightly smaller font size to differentiate */
 }

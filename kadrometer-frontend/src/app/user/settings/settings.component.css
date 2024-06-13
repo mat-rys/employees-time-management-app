@@ -21,13 +21,16 @@ body {
 
 .settings-container {
     background-color: #fff;
-    top: 250px;
+    top: 250px; /* Przesunięto w górę */
+    left: 50%;
+    transform: translateX(-50%); /* Centrowanie poziome */
     position: absolute;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin: 20px;
+    width: 250px; /* Zwiększono szerokość */
 }
 
 .settings-value{
@@ -38,7 +41,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px; /* Zwiększono odstęp */
     font-size: 17px; 
     color: #333;
 }
@@ -67,8 +70,10 @@ body {
 
 .change-input {
     display: flex;
-    align-items: center;
+    position: relative;
+    right: 8px;
     margin-top: 5px; /* Zmieniono na 5px */
+    margin-bottom: 10px; /* Zmieniono na 5px */
 }
 
 .change-input input {

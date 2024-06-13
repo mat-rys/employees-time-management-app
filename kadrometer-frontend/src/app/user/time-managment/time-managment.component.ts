@@ -43,6 +43,7 @@ export class TimeManagmentComponent  implements OnInit {
       const minutes = Math.floor((timeDifferenceInSeconds % 3600) / 60);
       const seconds = Math.floor(timeDifferenceInSeconds % 60);
       this.timeDifference = `${hours}h:${minutes}m:${seconds}s`;
+      this.fetchWorkWithMissingEndHour(); 
     } else {
       this.timeDifference = "0h:0m:0s"; 
     }

@@ -27,7 +27,7 @@ export class MonitoringHttpService {
     if (!startDate || !endDate) {
       console.error('Brak daty "od" lub "do".');
       return;
-    }
+    }   
 
     const token = this.authService.getToken();
     const headers = new HttpHeaders({

@@ -1,13 +1,12 @@
 <body>
-    <div class="background-content-photo">
-    </div>
-      <app-navbar-user (logout)="logout()"></app-navbar-user>
+    <div class="background-content-photo"></div>
+    <app-navbar-user (logout)="logout()"></app-navbar-user>
        
-      <section class="settings-container">
+    <section class="settings-container">
         <div class="settings-row">
             <span class="settings-label">Email:</span>
             <span class="settings-value">{{ account.userEmail }}</span>
-            <div class="change-button" (click)="showEmailInput = true">Change</div>
+            <div class="change-button" (click)="toggleChangeInput('email')">Change</div>
         </div>
         <div class="change-input" *ngIf="showEmailInput">
             <input type="text" [(ngModel)]="newEmail" placeholder="New email">
@@ -17,7 +16,7 @@
         <div class="settings-row">
             <span class="settings-label">Name:</span>
             <span class="settings-value">{{ account.name }}</span>
-            <div class="change-button" (click)="showNameInput = true">Change</div>
+            <div class="change-button" (click)="toggleChangeInput('name')">Change</div>
         </div>
         <div class="change-input" *ngIf="showNameInput">
             <input type="text" [(ngModel)]="newName" placeholder="New name">
@@ -27,7 +26,7 @@
         <div class="settings-row">
             <span class="settings-label">Surname:</span>
             <span class="settings-value">{{ account.surname }}</span>
-            <div class="change-button" (click)="showSurnameInput = true">Change</div>
+            <div class="change-button" (click)="toggleChangeInput('surname')">Change</div>
         </div>
         <div class="change-input" *ngIf="showSurnameInput">
             <input type="text" [(ngModel)]="newSurname" placeholder="New surname">
@@ -37,14 +36,11 @@
         <div class="settings-row">
             <span class="settings-label">Position:</span>
             <span class="settings-value">{{ account.position }}</span>
-            <div class="change-button" (click)="showPositionInput = true">Change</div>
+            <div class="change-button" (click)="toggleChangeInput('position')">Change</div>
         </div>
         <div class="change-input" *ngIf="showPositionInput">
             <input type="text" [(ngModel)]="newPosition" placeholder="New position">
             <button (click)="updateAccount(account.accountId, 'position', newPosition)">Update</button>
         </div>
     </section>
-    
 </body>
-
-

@@ -1,30 +1,28 @@
-<!-- login.component.html -->
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
 </head>
 <body>
-    <div class="background-content-photo">
-    </div>
+    <div class="background-content-photo"></div>
     
     <div class="login-container">
         <h2>Logowanie</h2>
-        <form>
+        <form (ngSubmit)="login()" #loginForm="ngForm">
+            <div *ngIf="showError" class="error-message">{{ errorMessage }}</div>
+
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" [(ngModel)]="email" required autocomplete="username">
+                <input type="email" id="email" name="email" [(ngModel)]="email" required autocomplete="username" #emailInput="ngModel">
             </div>
 
             <div class="form-group">
                 <label for="password">Hasło</label>
-                <input type="password" id="password" name="password" [(ngModel)]="password" required autocomplete="current-password">
+                <input type="password" id="password" name="password" [(ngModel)]="password" required autocomplete="current-password" #passwordInput="ngModel">
             </div>
 
-            <button (click)="login()">Zaloguj się</button>
+            <button type="submit" [disabled]="!loginForm.form.valid">Zaloguj się</button>
         </form>
 
         <p>Nie masz konta, <a routerLink="/registration">zarejestruj się</a></p>
     </div>
 </body>
-
-  

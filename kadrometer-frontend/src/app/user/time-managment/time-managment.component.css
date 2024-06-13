@@ -20,7 +20,7 @@ body {
 
 .button-container {
     display: flex;
-    margin-top: -350px;
+    margin-top: -300px;  /* Zmieniono wartość na -300px */
     flex-direction: row;
     align-items: center;
 }
@@ -30,12 +30,13 @@ body {
     color: #ffffff;
     border: none;
     border-radius: 100%; 
-    padding: 60px; 
+    padding: 82px;  /* Zwiększono o 20% */
     margin: 0 30px;
     font-size: 1.8rem;
     cursor: pointer;
     transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
 }
+
 
 .round-button-start{
     display: flex;
@@ -89,7 +90,7 @@ body {
 
 .clock {
     color: #e64a19;
-    margin-bottom: -150px;
+    margin-bottom: -300px;  /* Zmieniono wartość na -100px */
     position: absolute;
     font-size: 5rem;
 }
