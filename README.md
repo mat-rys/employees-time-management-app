@@ -1,4 +1,5 @@
-# Kadrometer_Spring_Angualr_API
+# employees-time-management-app
+
 ## Project Overview
 The project aims to streamline employee payroll management and work supervision with the capability of easily extracting data, for instance, into PDFs sorted according to custom guidelines, generating ready-made employee hour logs within a specified range, sorted as required.
 
